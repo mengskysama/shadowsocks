@@ -92,7 +92,7 @@ class DbTransfer(object):
     #启动没超流量的服务
         for row in rows:
             if ServerPool.get_instance().server_is_run(row[0]) > 0:
-                if row[1] + row[2] >= row[3]:
+                if row[1] + row[2] >= row[3] or row[6] != 1:
                     logging.info('db stop server at port [%s]' % (row[0]))
                     ServerPool.get_instance().del_server(row[0])
             elif ServerPool.get_instance().server_run_status(row[0]) is False:
