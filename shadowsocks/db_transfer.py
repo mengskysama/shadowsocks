@@ -64,7 +64,7 @@ class DbTransfer(object):
                     ' END, t = ' + str(int(last_time)) + \
                     ' WHERE port IN (%s)' % query_sub_in
         #print query_sql
-        conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
+        conn = cymysql.connect(host=Config.MYSQL_HOST, port=int(Config.MYSQL_PORT), user=Config.MYSQL_USER,
                                passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
         cur = conn.cursor()
         cur.execute(query_sql)
@@ -75,7 +75,7 @@ class DbTransfer(object):
     @staticmethod
     def pull_db_all_user():
         #数据库所有用户信息
-        conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
+        conn = cymysql.connect(host=Config.MYSQL_HOST, port=int(Config.MYSQL_PORT), user=Config.MYSQL_USER,
                                passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
         cur = conn.cursor()
         cur.execute("SELECT port, u, d, transfer_enable, passwd, switch, enable FROM users")
