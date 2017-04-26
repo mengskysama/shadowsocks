@@ -45,7 +45,7 @@ class DbTransfer(object):
                 dt_transfer[id] = [curr_transfer[id][0], curr_transfer[id][1]]
 
         self.last_get_transfer = curr_transfer
-        query_head = 'UPDATE user'
+        query_head = 'UPDATE users'
         query_sub_when = ''
         query_sub_when2 = ''
         query_sub_in = None
@@ -64,7 +64,7 @@ class DbTransfer(object):
                     ' END, t = ' + str(int(last_time)) + \
                     ' WHERE port IN (%s)' % query_sub_in
         #print query_sql
-        conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
+        conn = cymysql.connect(host=Config.MYSQL_HOST, port=int(Config.MYSQL_PORT), user=Config.MYSQL_USER,
                                passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
         cur = conn.cursor()
         cur.execute(query_sql)
@@ -75,10 +75,10 @@ class DbTransfer(object):
     @staticmethod
     def pull_db_all_user():
         #数据库所有用户信息
-        conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
+        conn = cymysql.connect(host=Config.MYSQL_HOST, port=int(Config.MYSQL_PORT), user=Config.MYSQL_USER,
                                passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
         cur = conn.cursor()
-        cur.execute("SELECT port, u, d, transfer_enable, passwd, switch, enable FROM user")
+        cur.execute("SELECT port, u, d, transfer_enable, passwd, switch, enable FROM users")
         rows = []
         for r in cur.fetchall():
             rows.append(list(r))
